@@ -110,7 +110,7 @@ Update the installed packages and dependencies:
     sudo npm install -g configurable-http-proxy
     ```
     
-20.  Switch back to root and add machine's hostname to `/etc/hosts` :
+20. Switch back to root and add machine's hostname to `/etc/hosts`:
     ``` bash
     sudo su root
     sudo echo 127.0.0.1 $(hostname) >> /etc/hosts
