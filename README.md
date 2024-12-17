@@ -58,7 +58,7 @@ Update the installed packages and dependencies:
 12. Install `nbgrader` for auto-grading jupyter notebooks:
    ``` bash
     pip install git+https://github.com/samhinshaw/nbgrader.git
-   ```
+   	```
 13. Install `nbgrader` for pulling jupyter notebooks from git repositories:
    ``` bash
     pip install nbgitpuller
