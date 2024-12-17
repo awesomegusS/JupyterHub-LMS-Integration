@@ -60,7 +60,7 @@ Update the installed packages and dependencies:
     pip install git+https://github.com/samhinshaw/nbgrader.git
    	```
 13. Install `nbgrader` for pulling jupyter notebooks from git repositories:
-   ``` bash
+   	``` bash
     pip install nbgitpuller
     ```
 14. Generate `LTI_CLIENT_KEY` and `LTI_CLIENT_SECRET` then save to `.env`:
