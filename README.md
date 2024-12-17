@@ -40,13 +40,13 @@ Update the installed packages and dependencies:
 	sudo su newuser
 	```
 8. Create virtualenv `env` for running sandboxed `jupyterhub`:
-   	``` bash
+   	```bash
     virtualenv -ppython3 env
     ```
 9.  Enter `env` environment:
-    ``` bash
+    ```bash
     source env/bin/activate
-   ```
+   	```
 10. Install `jupyterhub` for multiuser-session jupyter notebooks:
 	``` bash
     pip install jupyterhub
