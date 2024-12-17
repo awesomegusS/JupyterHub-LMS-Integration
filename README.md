@@ -18,7 +18,7 @@ Update the installed packages and dependencies:
 	sudo apt update && sudo apt upgrade
 	```
 
-4. Install `python`, `virtual env`
+4. Install `python`, `virtual env`:
 	```bash
 	sudo apt install python3 python3-venv
 	```
@@ -40,7 +40,7 @@ Update the installed packages and dependencies:
 	sudo su newuser
 	```
 8. Create virtualenv `env` for running sandboxed `jupyterhub`:
-   ``` bash
+   	``` bash
     virtualenv -ppython3 env
     ```
 9.  Enter `env` environment:
@@ -50,7 +50,7 @@ Update the installed packages and dependencies:
 10. Install `jupyterhub` for multiuser-session jupyter notebooks:
 	``` bash
     pip install jupyterhub
-   ```
+    ```
 11. Install `jupyterhub-ltiauthenticator` for multiuser-session jupyter notebooks:
    ``` bash
     pip install jupyterhub-ltiauthenticator
