@@ -1,8 +1,8 @@
 # JupyterHub Setup Guide
 
-> This guide provides step-by-step instructions for setting up a server environment for JupyterHub (tested on a scalable DigitalOcean Droplet).
+This guide provides step-by-step instructions for setting up a server environment for JupyterHub (tested on a scalable DigitalOcean Droplet).
 
----
+
 ## Setup: JupyterHub (Tested in DigitalOcean Droplet - 4GB 2VCPUs)
 ### Steps
 
@@ -47,7 +47,6 @@ Update the installed packages and dependencies:
     ``` bash
     source env/bin/activate
    ```
-   
 10. Install `jupyterhub` for multiuser-session jupyter notebooks:
 	``` bash
     pip install jupyterhub
