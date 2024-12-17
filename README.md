@@ -22,11 +22,11 @@ Update the installed packages and dependencies:
 	```bash
 	sudo apt install python3 python3-venv
 	```
-5. Add a new system user
+5. Add a new system user:
 	```bash
 	sudo adduser newuser
 	```
-6. Edit new user `sudoers` file
+6. Edit new user `sudoers` file:
 - Edit the `sudoers` file to allow specific privileges:
 	```bash
 	sudo visudo
@@ -35,7 +35,7 @@ Update the installed packages and dependencies:
 	```sql
 	ALL=(ALL:ALL) ALL
 	```
-7. Switch to user
+7. Switch to new user:
 	```bash
 	sudo su newuser
 	```
@@ -52,7 +52,7 @@ Update the installed packages and dependencies:
     pip install jupyterhub
     ```
 11. Install `jupyterhub-ltiauthenticator` for multiuser-session jupyter notebooks:
-   ``` bash
+   	``` bash
     pip install jupyterhub-ltiauthenticator
     ```
 12. Install `nbgrader` for auto-grading jupyter notebooks:
