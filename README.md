@@ -120,3 +120,32 @@ Update the installed packages and dependencies:
     sudo su newuser
     jupyterhub -f /path/to/jupyterhub_config.py
     ```
+    
+## Configure Canvas for JupyterHub Integration
+
+1. Go to canvas
+
+2. **Log in to Canvas and Go to Admin Settings**
+ - Navigate to **Admin** > **Settings** > **Apps** > **View App Configurations**.
+
+3. Add JupyterHub as an External Tool:
+
+- Click **+ App** to add a new tool.
+- Set the configuration as follows:
+	- **Configuration Type**: Paste XML.
+	- **Name**: JupyterHub (or a name that makes sense to your students).
+	- **Consumer Key** and **Shared Secret**: Use the ones you configured in jupyterhub_config.py.
+	- **XML Configuration**: Use the following XML template and replace YOUR_JUPYTERHUB_URL with your actual JupyterHub URL:
+	```xml
+	<cartridge_basiclti_link xmlns="http://www.imsglobal.org/xsd/imslticc_v1p0">
+  		<blti:title>JupyterHub</blti:title>
+  		<blti:description>Access JupyterHub from Canvas.</blti:description>
+  		<blti:launch_url>https://YOUR_JUPYTERHUB_URL/hub/lti/launch</blti:launch_url>
+  		<blti:extensions platform="canvas.instructure.com">
+    		<lticm:property name="privacy_level">public</lticm:property>
+  		</blti:extensions>
+	</cartridge_basiclti_link>
+	```
+4. **Add JupyterHub to a Course Module**:
+- In Canvas, go to your course and add JupyterHub as an **External Tool** in a module.
+- Test it by launching JupyterHub from within the course module to make sure the LTI integration works.
