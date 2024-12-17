@@ -56,7 +56,7 @@ Update the installed packages and dependencies:
     pip install jupyterhub-ltiauthenticator
     ```
 12. Install `nbgrader` for auto-grading jupyter notebooks:
-   ``` bash
+   	``` bash
     pip install git+https://github.com/samhinshaw/nbgrader.git
    	```
 13. Install `nbgrader` for pulling jupyter notebooks from git repositories:
