@@ -64,22 +64,22 @@ Update the installed packages and dependencies:
     pip install nbgitpuller
     ```
 14. Generate `LTI_CLIENT_KEY` and `LTI_CLIENT_SECRET` then save to `.env`:
-   ``` bash
+   	``` bash
     LTI_CLIENT_KEY=(`openssl rand -hex 32`)
     LTI_CLIENT_SECRET=(`openssl rand -hex 32`)
     echo LTI_CLIENT_KEY=$LTI_CLIENT_KEY > .env
     echo LTI_CLIENT_SECRET=$LTI_CLIENT_SECRET >> .env
     source .env
-   ```
+   	```
    
 15. Install `python-dotenv` for environment variable usage in python script:
-   ``` bash
+   	``` bash
     pip install python-dotenv
     ```
 16. Generate config file for `jupyterhub`:
-   ``` bash
+   	``` bash
     jupyterhub --generate-config
-   ``` 
+   	``` 
 17. Modify config file:
 - Set `ltiauthenticator` as `jupyterhub`'s authenticator class in `jupyter_config.py` generated above:
     ``` python
@@ -100,7 +100,7 @@ Update the installed packages and dependencies:
 
 - Change `authenticator.allow_existing_users` to True
 
-18. Install `npm` and `nodejs`
+18. Install `npm` and `nodejs`:
 	```bash
 	sudo apt install -y nodejs npm
 	```
