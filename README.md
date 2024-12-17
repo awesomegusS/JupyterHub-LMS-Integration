@@ -40,49 +40,49 @@ Update the installed packages and dependencies:
 	sudo su newuser
 	```
 8. Create virtualenv `env` for running sandboxed `jupyterhub`:
-   ```bash
+   ``` bash
     virtualenv -ppython3 env
     ```
 9.  Enter `env` environment:
-    ```bash
+    ``` bash
     source env/bin/activate
    ```
 10. Install `jupyterhub` for multiuser-session jupyter notebooks:
-	```bash
+	``` bash
     pip install jupyterhub
-   	```
+   ```
 11. Install `jupyterhub-ltiauthenticator` for multiuser-session jupyter notebooks:
-   	```bash
+   ``` bash
     pip install jupyterhub-ltiauthenticator
     ```
 12. Install `nbgrader` for auto-grading jupyter notebooks:
-   	```bash
+   ``` bash
     pip install git+https://github.com/samhinshaw/nbgrader.git
-   	```
+   ```
 13. Install `nbgrader` for pulling jupyter notebooks from git repositories:
-   	```bash
+   ``` bash
     pip install nbgitpuller
     ```
 14. Generate `LTI_CLIENT_KEY` and `LTI_CLIENT_SECRET` then save to `.env`:
-   	``` bash
+   ``` bash
     LTI_CLIENT_KEY=(`openssl rand -hex 32`)
     LTI_CLIENT_SECRET=(`openssl rand -hex 32`)
     echo LTI_CLIENT_KEY=$LTI_CLIENT_KEY > .env
     echo LTI_CLIENT_SECRET=$LTI_CLIENT_SECRET >> .env
     source .env
-   	```
+   ```
    
 15. Install `python-dotenv` for environment variable usage in python script:
-   	```bash
+   ``` bash
     pip install python-dotenv
     ```
 16. Generate config file for `jupyterhub`:
-   	```bash
+   ``` bash
     jupyterhub --generate-config
-   	``` 
+   ``` 
 17. Modify config file:
 - Set `ltiauthenticator` as `jupyterhub`'s authenticator class in `jupyter_config.py` generated above:
-    ```python
+    ``` python
     #c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
     import os
     c.JupyterHub.authenticator_class = 'ltiauthenticator.LTIAuthenticator'
