@@ -33,8 +33,9 @@ Update the installed packages and dependencies:
 	```
 	- Add the following line at the end of the file:
 	```sql
-	ALL=(ALL:ALL) ALL
+	newuser ALL=(ALL:ALL) ALL
 	```
+	replace `newuser` with name of `newuser` created
 7. Switch to new user:
 	```bash
 	sudo su newuser
