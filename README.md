@@ -215,7 +215,6 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 6.	Test the HTTPS Launch URL for JupyterHub
 	- Open a browser and go to `https://<your_domain_name>/hub/lti/launch`.
 	You should see a JupyterHub 405: Method not allowed response. This means the https launch URL is working and can now be used to add a jupyterhub app in canvas.
-	- 
 
 ### Setup Docker & DockerSpawner for Isolated Environments within server (allows multi-users have their isolated environment)
 1.	Install Docker:
@@ -251,7 +250,7 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	sudo systemctl status docker
 	```
 2.	Create a `docker` Group and Add Your User
-	- Create a docker group (if for some reason it wasn’t created automatically; check by running ```bash getent group docker```):
+	- Create a docker group (if for some reason it wasn’t created automatically; check by running ` getent group docker`):
 	```bash
 	sudo groupadd docker
 	```
@@ -319,7 +318,8 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	# - nbgrader: for assignment creation and grading
 	# - nbgitpuller: for distributing notebooks via git
 	# - jupyterlab-git: to integrate git into JupyterLab UI
-	RUN pip install nbgrader nbgitpuller jupyterlab-git
+	# - jupyter-lsp & python-lsp-server: for autocompletion provides deeper auto-completion for Python, docstrings, etc.
+	RUN pip install nbgrader nbgitpuller jupyterlab-git jupyter-lsp python-lsp-server
 	
 	# update jupyterlab-git to make it compatible
 	RUN pip install --upgrade jupyterlab-git nbdime
@@ -341,8 +341,6 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	# === [9] Disable the inherited health check so container won't keep failing
 	HEALTHCHECK NONE
 	
-	#
-	
 	# === [10] Switch to 'newuser' user
 	USER newuser
 	
@@ -353,6 +351,31 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	```bash
 	docker build --no-cache --progress=plain -t <desired-image-name>:latest .
 	```
+	
+	- Test docker image with installed packages & extensions
+	```bash
+	# 1) Run a container in interactive mode.
+	docker run --rm -it <desired-image-name>:latest bash
+	
+	# 2) Inside the container, check your user, ONLY if configured in docker file
+	whoami
+	# Should be newuser
+	
+	echo $HOME
+	# Should be '/path/to/desired/home/in/container'
+	
+	# 3) Test imports
+	python -c "import torch, tensorflow, pandas, numpy, nbgrader, nbgitpuller; print('All packages are installed correctly.')"
+	# Expect "All packages are installed correctly."
+	
+	# 4) Confirm nbgrader server extension
+	jupyter server extension list
+	# Should show nbgrader enabled
+	
+	# 5) Exit
+	exit
+	```
+
 	
 	
 4.	Configure DockerSpawner
@@ -383,20 +406,30 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	c.Spawner.http_timeout = 120
 	c.Spawner.start_timeout = 120
 	
-	# Define a volume named "jupyterhub-user-{username}" for each user to persist user data after containers are removed/destroyed on user session termination
+	# Define a volume named "jupyterhub-user-{username}" for data created or modified by each user to persist after containers are removed/destroyed on user session termination
 	c.DockerSpawner.volumes = {
-	  'jupyterhub-user-{username}': '/path/to/home'
+	  'jupyterhub-user-{username}': '/path/to/desired/home/in/container'
 	}
 	
 	# Notebook directory inside the container. If your image sets `HOME` to /path/to/home,
 	# you might want to keep things consistent.
-	c.DockerSpawner.notebook_dir = "/path/to/home"
+	c.DockerSpawner.notebook_dir = "/path/to/desired/home/in/container"
 	
 	# Remove containers when they stop (helps keep things clean)
 	c.DockerSpawner.remove_containers = True # set false if you need to see container logs which can be used for debugging
 
 	```
-	
+	To check volumes use either:
+	- List volumes
+	```bash
+	docker volume ls 
+	```
+	You should see something like jupyterhub-user-{username}
+	- Inspect the volume
+	```bash
+	docker volume inspect jupyterhub-user-{username}
+	```
+
 ## Configure Canvas for JupyterHub Integration
 
 1. Go to canvas
@@ -417,4 +450,4 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 4. **Add JupyterHub to a Course Module**:
 - In Canvas, go to your course and add JupyterHub as an **External Tool** in a module.
 - Edit tool and check box option to allow canvas to open Jupyter hub in a new window
-- Test it by launching JupyterHub from within the course module to make sure the LTI integration works.
+- Test it by launching JupyterHub from within the course module to make sure the LTI integration works and docker configuration works.
