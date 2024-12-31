@@ -6,28 +6,28 @@ This guide provides step-by-step instructions for setting up a server environmen
 ## Setup: JupyterHub (Tested in DigitalOcean Droplet - 4GB 2VCPUs)
 ### Setup Server Environment with JupyterHub
 
-1. Provision a Server/VPS machine**
+1. 	Provision a Server/VPS machine**
 	- Set up a scalable server for the installation.
 
-2. Spin Up the Server and Connect to it
+2. 	Spin Up the Server and Connect to it
 	- Launch the server and ensure it is accessible.
 
-3. Install Updates
-Update the installed packages and dependencies:
+3. 	Install Updates
+	Update the installed packages and dependencies:
 	```bash
 	sudo apt update && sudo apt upgrade
 	```
 
-4. Install `python`, `virtual env`:
+4. 	Install `python`, `virtual env`:
 	```bash
 	sudo apt install python3 python3-venv
 	```
-5. Add a new system user:
+5. 	Add a new system user:
 	```bash
 	sudo adduser newuser
 	```
-6. Edit new user `sudoers` file:
-	- Edit the `sudoers` file to allow specific privileges:
+6. 	Edit new user `sudoers` file:
+	- Edit the `sudoers` file to make `newuser` a super user and allow specific privileges:
 	```bash
 	sudo visudo
 	```
@@ -36,11 +36,11 @@ Update the installed packages and dependencies:
 	newuser ALL=(ALL:ALL) ALL
 	```
 	replace `newuser` with name of `newuser` created
-7. Switch to new user:
+7. 	Switch to new user:
 	```bash
 	sudo su newuser
 	```
-8. Create virtualenv `env` for running sandboxed `jupyterhub`:
+8. 	Create virtualenv `env` for running sandboxed `jupyterhub`:
    	```bash
     python3 -m venv jupyterhub-env
     ```
@@ -411,12 +411,12 @@ Canvas only adds apps with a configured secured URL so we need to secure your Ju
 	  'jupyterhub-user-{username}': '/path/to/desired/home/in/container'
 	}
 	
-	# Notebook directory inside the container. If your image sets `HOME` to /path/to/home,
+	# Notebook directory inside the container. If your image sets `HOME` to /path/to/desired/home/in/container,
 	# you might want to keep things consistent.
 	c.DockerSpawner.notebook_dir = "/path/to/desired/home/in/container"
 	
 	# Remove containers when they stop (helps keep things clean)
-	c.DockerSpawner.remove_containers = True # set false if you need to see container logs which can be used for debugging
+	c.DockerSpawner.remove_containers = True # set False if you need to see container logs which can be used for debugging
 
 	```
 	To check volumes use either:
